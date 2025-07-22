@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://render.com/docs/web-services#port-binding";
+const baseUrl = "https://part3-notes-backend-o51h.onrender.com";
 
 const getAll = () => {
   const data = axios.get(baseUrl);
