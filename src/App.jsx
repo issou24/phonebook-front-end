@@ -6,7 +6,7 @@ import entryService from "./services/entryService";
 import Notification from "./components/Notification";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
@@ -55,7 +55,7 @@ const App = () => {
     const existingPerson = persons.find((person) => person.name === newName);
     if (existingPerson) {
       // ici on appelle handleDoublon pour proposer la modification
-      handleDoublon(existingPerson.id);
+      handleDoublon(existingperson._id);
       return; // stop la création car on passe par la mise à jour
     }
 
@@ -100,7 +100,7 @@ const App = () => {
     if (!confirmDelete) return;
 
     entryService.deletePerson(id).then(() => {
-      setPersons(persons.filter((p) => p.id !== id));
+      setPersons(persons.filter((p) => p._id !== id));
     });
   };
 
@@ -111,7 +111,7 @@ const App = () => {
       {person.name} {person.number}
       <button
         style={{ backgroundColor: "blue", color: "white" }}
-        onClick={() => handleDelete(person.id)}
+        onClick={() => handleDelete(person._id)}
       >
         Delete
       </button>
@@ -128,11 +128,11 @@ const App = () => {
     setNewName("");
     if (!confirmUpdate) return;
 
-    const personToUpdate = persons.find((p) => p.id === id);
+    const personToUpdate = persons.find((p) => p._id === id);
     const updatedPerson = { ...personToUpdate, number: newNumber }; // par ex.
 
     entryService.updatePerson(id, updatedPerson).then((returnedPerson) => {
-      setPersons(persons.map((p) => (p.id !== id ? p : returnedPerson)));
+      setPersons(persons.map((p) => (p._id !== id ? p : returnedPerson)));
       setNewNumber(""); // si tu veux reset le champ
     });
   };
@@ -164,7 +164,7 @@ const App = () => {
       <h2>Numbers</h2>
       {personsToShow.map((person) => (
         <Person
-          key={person.id}
+          key={person._id}
           person={person}
           handleDelete={handleDelete}
         />
