@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://part3-notes-backend-o51h.onrender.com";
+const baseUrl = "https://part3-notes-backend-o51h.onrender.com/api/persons";
 
 const getAll = () => {
   const data = axios.get(baseUrl);
