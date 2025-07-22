@@ -162,7 +162,7 @@ const App = () => {
         <Person
           key={person.id}
           person={person}
-          handleDelete={() => handleDelete(person.id)}
+          handleDelete={handleDelete}
         />
       ))}
     </div>
