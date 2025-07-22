@@ -96,13 +96,17 @@ const App = () => {
   );
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm("Supprimer ce contact ?");
-    if (!confirmDelete) return;
+  console.log("handleDelete called with id:", id);
+  const confirmDelete = window.confirm("Supprimer ce contact ?");
+  if (!confirmDelete) return;
 
-    entryService.deletePerson(id).then(() => {
-      setPersons(persons.filter((p) => p._id !== id));
-    });
-  };
+  entryService.deletePerson(id).then(() => {
+    setPersons(persons.filter((p) => p._id !== id));
+  }).catch(err => {
+    console.error("Erreur suppression:", err);
+  });
+};
+
 
   const Person = ({ person, handleDelete }) => {
   console.log("🔍 Person dans component:", person);
