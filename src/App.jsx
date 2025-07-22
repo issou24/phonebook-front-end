@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("https://part3-notes-backend-o51h.onrender.com").then((response) => {
+    axios.get("https://part3-notes-backend-o51h.onrender.com/api/persons").then((response) => {
       console.log("promise fulfilled");
       setPersons(response.data);
     });
