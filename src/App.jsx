@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     console.log("effect");
-    axios.get("https://render.com/docs/web-services#port-binding").then((response) => {
+    axios.get("https://part3-notes-backend-o51h.onrender.com").then((response) => {
       console.log("promise fulfilled");
       setPersons(response.data);
     });
