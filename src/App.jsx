@@ -104,7 +104,9 @@ const App = () => {
     });
   };
 
-  const Person = ({ person, handleDelete }) => (
+  const Person = ({ person, handleDelete }) => {
+  console.log("🔍 Person dans component:", person);
+  return (
     <div>
       {person.name} {person.number}
       <button
@@ -115,6 +117,8 @@ const App = () => {
       </button>
     </div>
   );
+};
+
 
   const handleDoublon = (id) => {
     const confirmUpdate = window.confirm(
