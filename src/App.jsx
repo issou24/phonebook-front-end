@@ -109,7 +109,7 @@ const App = () => {
       {person.name} {person.number}
       <button
         style={{ backgroundColor: "blue", color: "white" }}
-        onClick={handleDelete}
+        onClick={() => handleDelete(person.id)}
       >
         Delete
       </button>
