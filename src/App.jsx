@@ -55,7 +55,7 @@ const App = () => {
     const existingPerson = persons.find((person) => person.name === newName);
     if (existingPerson) {
       // ici on appelle handleDoublon pour proposer la modification
-      handleDoublon(existingperson._id);
+      handleDoublon(existingPerson._id);
       return; // stop la création car on passe par la mise à jour
     }
 
