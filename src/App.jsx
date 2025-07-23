@@ -49,47 +49,40 @@ const App = () => {
   };
 
   const addName = async (event) => {
-    event.preventDefault();
-    console.log("button clicked", event.target);
+  event.preventDefault();
+  console.log("button clicked", event.target);
 
-    const existingPerson = persons.find((person) => person.name === newName);
-    if (existingPerson) {
-      // ici on appelle handleDoublon pour proposer la modification
-      handleDoublon(existingPerson._id);
-      return; // stop la création car on passe par la mise à jour
+  const existingPerson = persons.find((person) => person.name === newName);
+  if (existingPerson) {
+    // Propose la modification via handleDoublon
+    handleDoublon(existingPerson._id);
+    return; // stop la création car on passe par la mise à jour
+  }
+
+  const newPerson = { name: newName, number: newNumber };
+
+  try {
+    const returnedPerson = await entryService.createPerson(newPerson);
+    setPersons([...persons, returnedPerson]);
+    setNotification({
+      status: "success",
+      msg: `Success: You added ${newName} to the Phonebook!`,
+    });
+    setShowMsg(true);
+    setNewName("");
+    setNewNumber("");
+  } catch (error) {
+    if (error.response) {
+      alert(`Erreur du serveur : ${error.response.data.error}`);
+    } else if (error.request) {
+      alert("Aucune réponse du serveur (problème de connexion ?)");
+    } else {
+      alert("Une erreur inconnue s'est produite.");
     }
+  }
+};
 
-    const newPerson = { name: newName, number: newNumber };
 
-    // ✅ Ajoute le nom à la liste
-
-    try {
-      const returnedPerson = await entryService.createPerson(newPerson);
-      setPersons([...persons, returnedPerson]);
-      setNotification({
-        status: "success",
-        msg: `Success: You added ${newName} to the Phonebook!`,
-      });
-      setShowMsg(true);
-      setNewName("");
-      setNewNumber("");
-    } catch (error) {
-      if (error.response) {
-        console.error("Erreur backend :", error.response.data);
-        alert(
-          `Erreur du serveur : ${
-            error.response.data.error || error.response.statusText
-          }`
-        );
-      } else if (error.request) {
-        console.error("Pas de réponse du serveur :", error.request);
-        alert("Aucune réponse du serveur (problème de connexion ?)");
-      } else {
-        console.error("Erreur inconnue :", error.message);
-        alert("Une erreur inconnue s'est produite.");
-      }
-    }
-  };
 
   const personsToShow = persons.filter((person) =>
     person.name.toLowerCase().includes(filter.toLowerCase())
